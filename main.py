@@ -64,7 +64,7 @@ def getBeijinTime():
     global K, type
     K = 1.0
     type = ""
-    hea = {'User-Agent': 'Mozilla/5.0'}
+    hea = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36'}
     url = r'https://apps.game.qq.com/CommArticle/app/reg/gdate.php'
     if open_get_weather == "True":
         getWeather()
