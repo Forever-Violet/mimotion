@@ -220,9 +220,10 @@ def main(_user, _passwd, min_1, max_1):
 
 # 获取时间戳
 def get_time():
-    url = 'http://worldtimeapi.org/api/timezone/Asia/Shanghai'
+    url = 'https://acs.m.taobao.com/gw/mtop.common.getTimestamp/'
     response = requests.get(url, headers=headers).json()
-    t = str(response['unixtime'])+'000'
+    # t = str(response['unixtime'])+'000'
+    t = response['data']['t']
     return t
 
 
