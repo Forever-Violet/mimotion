@@ -8,6 +8,7 @@ import sys
 import time
 
 import requests
+import pytz
 
 # 开启根据地区天气情况降低步数（默认关闭）
 open_get_weather = sys.argv[3]
@@ -217,13 +218,22 @@ def main(_user, _passwd, min_1, max_1):
     print(result)
     return result
 
-
 # 获取时间戳
+# def get_time():
+#     url = 'https://acs.m.taobao.com/gw/mtop.common.getTimestamp/'
+#     response = requests.get(url, headers=headers).json()
+#     # t = str(response['unixtime'])+'000'
+#     t = response['data']['t']
+#     return t
 def get_time():
-    url = 'https://acs.m.taobao.com/gw/mtop.common.getTimestamp/'
-    response = requests.get(url, headers=headers).json()
-    # t = str(response['unixtime'])+'000'
-    t = response['data']['t']
+    # UTC
+    utc_now = datetime.datetime.utcnow()
+    # 东八区，偏移量为+8小时
+    beijing_tz = pytz.timezone('Asia/Shanghai')
+    # 将UTC时间转换为北京时间
+    beijing_now = utc_now.replace(tzinfo=pytz.utc).astimezone(beijing_tz)
+    # 转为毫秒级时间戳
+    t = int(beijing_now.timestamp() * 1000)
     return t
 
 
