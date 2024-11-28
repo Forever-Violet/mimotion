@@ -34,6 +34,6 @@ jobs:
           # git commit
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add .github/workflows/run.yml
+          git add .
           git commit -m "random cron"
           git push origin master
