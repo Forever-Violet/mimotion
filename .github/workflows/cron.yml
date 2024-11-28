@@ -15,9 +15,25 @@ jobs:
           token: ${{ secrets.PAT }} #此处PAT需要申请，教程详见：https://www.jianshu.com/p/bb82b3ad1d11,需要repo和workflow权限
       - name: random cron
         run: |
-          sed -i -E "s/(- cron: ')[0-9]+( [^[:space:]]+ \* \* \*')/\1$(($RANDOM % 59))\2/g" .github/workflows/run.yml
+          # sed -i -E "s/(- cron: ')[0-9]+( [^[:space:]]+ \* \* \*')/\1$(($RANDOM % 59))\2/g" .github/workflows/run.yml
+          # git config user.name github-actions
+          # git config user.email github-actions@github.com
+          # git add .
+          # git commit -m "random cron"
+          # git push origin master
+          # 获取当前cron分钟数
+          current_min=$(sed -nE 's/.*(- cron: )([0-9]+).*/\2/p' .github/workflows/run.yml)
+          # 生成一个与当前分钟数不同的随机数
+          new_min=$current_min
+          while [ "$new_min" -eq "$current_min" ]; do
+            echo "Minutes repeated, continue to random"
+            new_min=$((RANDOM % 59))
+          done
+          # 替换分钟数
+          sed -i -E "s/(- cron: )([0-9]+)( [^[:space:]]+ \* \* \*')/\1$new_min\3/" .github/workflows/run.yml
+          # git commit
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add .
+          git add .github/workflows/run.yml
           git commit -m "random cron"
           git push origin master
