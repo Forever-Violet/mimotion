@@ -237,7 +237,8 @@ def main(_user, _passwd, min_1, max_1):
     url = f'https://api-mifit-cn.huami.com/v1/data/band_data.json?&t={t}'
     head = {
         "apptoken": app_token,
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": get_random_user_agent()
     }
 
     data = f'userid={userid}&last_sync_data_time=1597306380&device_type=0&last_deviceid=DA932FFFFE8816E7&data_json={data_json}'
